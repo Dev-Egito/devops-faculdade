@@ -1,0 +1,21 @@
+name: Network CI Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch: # Permite rodar o workflow manualmente pelo GitHub
+
+jobs:
+  ping-test:
+    runs-room: ubuntu-latest
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Ping Google DNS (8.8.8.8)
+      run: |
+        # O parâmetro -c 4 envia exatamente 4 pacotes para o teste não rodar infinitamente
+        ping -c 4 8.8.8.8
